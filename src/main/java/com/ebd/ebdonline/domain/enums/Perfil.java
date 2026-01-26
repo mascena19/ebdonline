@@ -4,7 +4,8 @@ import java.util.Iterator;
 
 public enum Perfil {
 	
-	ADMIN(0, "ROLE_ADMIN"), SECRETADRIO(2, "ROLE_SECRETARIO");
+	ADMIN(0, "ROLE_ADMIN") , ALUNO(1, "ROLE_ALUNO"), SECRETADRIO(2, "ROLE_SECRETARIO")
+	,VISITANTE(3, "ROLE_VISITANTE");
 	
 	private Integer codigo;
 	private String descricao;
