@@ -20,45 +20,47 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public abstract class Pessoa implements Serializable {
+public class Pessoa implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected Integer id;
+	private Integer id;
 	
-	protected String nome;
-	
-	@Column(unique = true)
-	protected String cpf;
-	
-	protected LocalDate dataNascimento;
+	private String nome;
 	
 	@Column(unique = true)
-	protected String email;
-	protected String senha;
+	private String cpf;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataNascimento;
+	
+	@Column(unique = true)
+	private String email;
+	private String senha;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "PERFIS")
-	protected Set<Integer> perfis = new HashSet<>(); 
+	private Set<Integer> perfis = new HashSet<>(); 
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	protected LocalDate dataCriacao = LocalDate.now();
+	private LocalDate dataCriacao = LocalDate.now();
 	
 	public Pessoa() {
 		super();
 		addPerfil(Perfil.ALUNO);
 	}
 
-	public Pessoa(Integer id, String nome, String cpf, String email, String senha) {
+	public Pessoa(Integer id, String nome, String cpf, LocalDate dataNascimento, String email, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
 		this.senha = senha;
-		addPerfil(Perfil.ALUNO);
+		this.dataNascimento = dataNascimento;
+		
 	}
 	
 
