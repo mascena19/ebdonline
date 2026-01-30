@@ -18,6 +18,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -26,6 +28,11 @@ public class Pessoa implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(
+		    name = "seq_pessoa",
+		    sequenceName = "SEQ_PESSOA",
+		    allocationSize = 1
+		)
 	private Integer id;
 	
 	private String nome;
@@ -46,6 +53,12 @@ public class Pessoa implements Serializable {
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCriacao = LocalDate.now();
+	
+	@OneToMany(mappedBy = "professor")
+    private Set<Turma> turmas = new HashSet<>();
+	
+	@OneToMany(mappedBy = "pessoa") 
+	private Set<Matricula> matriculas = new HashSet<>();
 	
 	public Pessoa() {
 		super();
@@ -128,6 +141,11 @@ public class Pessoa implements Serializable {
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+	
+	public Set<Matricula> getMatriculas() {
+	    return matriculas;
+	}
+
 
 	@Override
 	public int hashCode() {

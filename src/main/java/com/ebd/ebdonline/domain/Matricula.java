@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 
 @Entity
@@ -20,16 +22,23 @@ public class Matricula implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_generica")
 	@SequenceGenerator(
-	    name = "seq_generica",
-	    sequenceName = "SEQ_GENERICA",
+	    name = "seq_matricula",
+	    sequenceName = "SEQ_MATRICULA",
 	    allocationSize = 1
 	)
 	private Integer id;
+	
+	@ManyToOne
+	@JoinColumn(name = "turma_id", nullable = false)
 	private Turma turma;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataMatricula = LocalDate.now();
 	private boolean ativa;
+	
+	@ManyToOne
+	@JoinColumn(name = "pessoa_id", nullable = false)
+	private Pessoa pessoa;
 	
 	
 	public Integer getId() {
@@ -57,6 +66,19 @@ public class Matricula implements Serializable {
 		this.ativa = ativa;
 	}
 	
+	
+	/**
+	 * @return the pessoa
+	 */
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+	/**
+	 * @param pessoa the pessoa to set
+	 */
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(ativa, dataMatricula, id, turma);

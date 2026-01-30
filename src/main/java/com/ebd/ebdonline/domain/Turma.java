@@ -1,14 +1,20 @@
 package com.ebd.ebdonline.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.ebd.ebdonline.domain.enums.FaixaEtaria;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 
 @Entity
@@ -19,15 +25,21 @@ public class Turma  implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_generica")
 	@SequenceGenerator(
-	    name = "seq_generica",
-	    sequenceName = "SEQ_GENERICA",
+	    name = "seq_turma",
+	    sequenceName = "SEQ_TURMA",
 	    allocationSize = 1
 	)
 	private int id;
 	private String nome;
+	
+	@ManyToOne
+	@JoinColumn(name = "professor_id", nullable = false)
 	private Pessoa professor;
 	private boolean ativa;
 	private FaixaEtaria faixaEtaria;
+	
+	 @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
+	 private Set<Matricula> matriculas = new HashSet<>();
 	
 	public int getId() {
 		return id;

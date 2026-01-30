@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 
 @Entity
@@ -19,14 +21,22 @@ public class ParticipacaoAula implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_generica")
 	@SequenceGenerator(
-	    name = "seq_generica",
-	    sequenceName = "SEQ_GENERICA",
+	    name = "seq_participacao",
+	    sequenceName = "SEQ_PARTICIPACAO",
 	    allocationSize = 1
 	)
 	private Integer id;
+	
+	@ManyToOne
+	@JoinColumn(name = "aula_id")
 	private Aula aula;
+	
+	@ManyToOne
+	@JoinColumn(name = "pessoa_id")
 	private Pessoa pessoa;
+	
 	private boolean presente;
+	private boolean estudo;
 	private boolean visitante;
 	
 	
@@ -71,6 +81,14 @@ public class ParticipacaoAula implements Serializable {
 
 	public void setPresente(boolean presente) {
 		this.presente = presente;
+	}
+		
+	public boolean isEstudo() {
+		return estudo;
+	}
+
+	public void setEstudo(boolean estudo) {
+		this.estudo = estudo;
 	}
 
 	public boolean isVisitante() {

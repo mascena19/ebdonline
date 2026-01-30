@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 
 @Entity
@@ -20,11 +22,14 @@ public class Aula implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_generica")
 	@SequenceGenerator(
-	    name = "seq_generica",
-	    sequenceName = "SEQ_GENERICA",
+	    name = "seq_aula",
+	    sequenceName = "SEQ_AULA",
 	    allocationSize = 1
 	)
 	private Integer id;
+	
+	@ManyToOne
+	@JoinColumn(name = "turma_id")
 	private Turma turma;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
