@@ -50,7 +50,8 @@ public class DBService {
     	turma.setNome("Turma 2026");
     	turma.setProfessor(p2);
     	turma.setFaixaEtaria(FaixaEtaria.ADULTOS);
-    	turmaRepository.save(turma);
+    	turma.setAtiva(true);
+       	turmaRepository.save(turma);
     	
     	
     	Matricula m1 = new Matricula();

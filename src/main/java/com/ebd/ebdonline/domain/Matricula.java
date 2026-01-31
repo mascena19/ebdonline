@@ -28,6 +28,7 @@ public class Matricula implements Serializable {
 	)
 	private Integer id;
 	
+	
 	@ManyToOne
 	@JoinColumn(name = "turma_id", nullable = false)
 	private Turma turma;

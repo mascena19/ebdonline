@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.ebd.ebdonline.domain.enums.FaixaEtaria;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -38,6 +39,7 @@ public class Turma  implements Serializable {
 	private boolean ativa;
 	private FaixaEtaria faixaEtaria;
 	
+	 @JsonIgnore
 	 @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
 	 private Set<Matricula> matriculas = new HashSet<>();
 	

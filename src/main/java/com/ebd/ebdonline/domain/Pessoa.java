@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import com.ebd.ebdonline.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -54,9 +55,11 @@ public class Pessoa implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCriacao = LocalDate.now();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "professor")
     private Set<Turma> turmas = new HashSet<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "pessoa") 
 	private Set<Matricula> matriculas = new HashSet<>();
 	
